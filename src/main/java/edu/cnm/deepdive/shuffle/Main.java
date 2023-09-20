@@ -8,7 +8,7 @@ public class Main{
     int[] data = new int[100];
         for(int i = 0; i < data.length; i++) {
           data[i] = 100 + i;
-        };
+        }
     System.out.println(Arrays.toString(data));
   Shuffler shuffleboy = new Shuffler();
   shuffleboy.shuffle(data);
