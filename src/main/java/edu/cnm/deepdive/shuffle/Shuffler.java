@@ -20,7 +20,8 @@ public class Shuffler {
                         data[srcPos] = Assistant;
 
           }
-    }
+
+        }
 
   }
 
