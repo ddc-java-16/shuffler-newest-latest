@@ -11,11 +11,17 @@ import java.util.List;
 public class Main {
 
   public static void main(String[] args) {
-    int[] data = parseCommandLine(args); // TODO Change to parse InputStream ()
-    System.out.println(Arrays.toString(data));
-    Shuffler shuffleboy = new Shuffler();
-    shuffleboy.shuffle(data);
-    System.out.println(Arrays.toString(data));
+    try {
+      int[] data = parseStandardInput();
+      System.out.println(Arrays.toString(data));
+      Shuffler shuffleboy = new Shuffler();
+      shuffleboy.shuffle(data);
+      System.out.println(Arrays.toString(data));
+    } catch (IOException | IllegalArgumentException e) {
+      System.err.println(e.getMessage());
+    }
+
+
   }
 
   private static int[] parseCommandLine(String[] args) {
@@ -31,14 +37,19 @@ public class Main {
     data = Arrays.copyOf(data, i);
     return data;
   }
-  private static int[] parseStandardInput() throws IOException{
+
+
+  private static int[] parseStandardInput() throws IOException {
     List<Integer> data = new LinkedList<>();
     Reader reader = new InputStreamReader(System.in);
     BufferedReader buffer = new BufferedReader(reader);
     String input;
     try {
       while ((input = buffer.readLine()) != null) {
-      data.add(Integer.parseInt(input.strip()));
+        input = input.strip();
+        if (!input.isEmpty()) {
+          data.add(Integer.parseInt(input));
+        }
       }
     } catch (NumberFormatException e) {
       System.err.printf("Parsing failed! %s%n", e.getMessage());
@@ -48,7 +59,9 @@ public class Main {
     for (int value : data) {
       result[position++] = value;
     }
-      return result;
+    return result;
   }
+
+
 }
 
